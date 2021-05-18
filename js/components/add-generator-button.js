@@ -8,6 +8,7 @@ Vue.component('add-generator-button', {
         },
         addGenerator() {
             if (player.graphics < this.tierCost()) return
+            player.graphics -= this.tierCost()
             player[this.target].push(createGenerator(player[this.target].length, this.target))
         },
         tierCost() {
