@@ -3,7 +3,7 @@
 }
 
 html {
-    font-family: 'Fira Mono', monospace;
+    font-family: 'VT323', monospace;
     color: white;
     background: #03045E;
     text-shadow: 1px 1px 2px black;
@@ -12,7 +12,7 @@ html {
 #app {
     width: 950px;
     margin: auto;
-    margin-top: 1rem;
+    margin-top: 2rem;
 }
 
 .currency-container, .producers-container {
@@ -25,6 +25,7 @@ html {
     background: #023E8A;
     text-align: center;
     padding: 40px;
+    box-shadow: 5px 5px 10px black;
 }
 
 .generators-container {
@@ -44,6 +45,7 @@ html {
     user-select: none;
     transition-duration: 0.12s;
     padding: 1rem;
+    box-shadow: 5px 5px 10px black;
 }
 
 .generator--unavailable {
@@ -67,9 +69,23 @@ button {
     background: #90E0EF;
     border: none;
     padding: 5px;
+    box-shadow: 5px 5px 10px black;
 }
 
 button:hover{
     background: #00B4D8;
     cursor: pointer;
+}
+
+#gtitle {
+    text-decoration: underline;
+    cursor: default;
+}
+
+#notes {
+    position: fixed;
+    float: right;
+    right: 0;
+    bottom: 0;
+    width: 300px;
 }
