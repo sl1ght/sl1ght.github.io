@@ -28,7 +28,7 @@ var firstArtist = {
 
 var firstEvil = {
     tier: 0,
-    cost: 500,
+    cost: 100000000,
     mult: 1,
     amount: 0,
     bought: 0,
