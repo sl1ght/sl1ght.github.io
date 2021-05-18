@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Idle Corruptor 0.1</title>
+</head>
+<body>
+    <h1>Idle Corruptor 0.1</h1>
+    <div id="app">
+        <div class="currency-container">
+            <div class="marketing-currency">
+                <h3>You have ${{ format(player.money) }}</h3>
+            </div>
+            <div class="artist-currency">
+                <h3>You have {{ format(player.graphics) }} Power</h3>
+            </div>
+            <div class="evil-currency">
+                <h3>You have {{ format(player.blood) }} Evil</h3>
+            </div>
+        </div>
+        <div class="producers-container">
+            <div class="generators-container">
+                <div 
+                class="generator marketing-generator" 
+                :class="{ 'generator--unavailable': !generator.canBuy}"
+                v-for="generator in player.marketing">
+                    <generator :generator="generator" />
+                </div>
+                <add-generator-button target="marketing"/>
+            </div>
+            <div class="generators-container">
+                <div class="generator artist-generator" 
+                :class="{ 'generator--unavailable': !generator.canBuy}"
+                 v-for="generator in player.artists">
+                    <generator :generator="generator" />
+                </div>
+                <add-generator-button target="artists"/>
+            </div>
+            <div class="generators-container">
+                <div class="generator evil-generator" 
+                :class="{ 'generator--unavailable': !generator.canBuy}"
+                 v-for="generator in player.evil">
+                    <generator :generator="generator" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.rawgit.com/erosson/swarm-numberformat/v0.4.0/dist/swarm-numberformat.min.js"></script>
+    <script src="js/vue.js"></script>   
+    <script src="js/generator.js"></script> 
+    <script src="js/components/generator.js"></script>
+    <script src="js/components/add-generator-button.js"></script>
+
+    <script src="js/player.js"></script>
+    <script src="js/format.js"></script>
+    <script src="js/loop.js"></script>
+    <script src="js/format.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>
