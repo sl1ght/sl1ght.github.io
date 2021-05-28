@@ -1,0 +1,33 @@
+body {
+  width: 100%;
+  background: url(../img/background.jpg);
+  background-size: cover;
+}
+
+.gthr, .crftng, .bldng {
+  margin-top: 1rem;
+  margin-bottom: -3rem;
+  width:100%;
+}
+
+.wrkr-cnt {
+  float: right;
+}
+
+.close {
+  float: right;
+}
+
+#endGameModal {
+  margin: auto;
+  width: 80;
+}
+
+.artifact {
+  cursor: pointer;
+}
+
+.artifact:hover {
+  background-color: blue;
+  color: white;
+}
