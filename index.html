@@ -14,7 +14,8 @@
       <div class="col">
 
         <div class="row" style="margin-bottom:1rem;">
-          <span id="notes" class="text-light" style="position:fixed;cursor:pointer;text-decoration:underline;font-family: monospace; float: left;">Notes</span><h1 id="civ-title" align="center" style="text-decoration: underline;" class="text-light">Foreign Planet</h1>
+          <span id="notes" class="text-light" style="position:fixed;cursor:pointer;text-decoration:underline;font-family: monospace; float: left;">Notes</span>
+          <h1 id="civ-title" align="center" style="text-decoration: underline;" class="text-light">Foreign Planet</h1>
         </div>
         <div class="row">
           <div class="col">
@@ -34,7 +35,7 @@
                   <div class="row">
                     <div class="row gthr">
                       <div class="col">
-                        <div class="card border-success mb-5 gatherer" >
+                        <div class="card border-success mb-5 gatherer">
                           <div class="card-header">Crash Site <span id="scrap-workers wrkr-cnt text-light" style="float: right;"><span id="scrpWrk">0</span>/<span id="scrpWrkMx">0</span></span></div>
                           <div class="card-body">
                             <h5 class="card-title">
@@ -56,7 +57,7 @@
                     <div class="row gthr">
                       <div class="col">
 
-                        <div class="card border-success mb-5 gatherer" >
+                        <div class="card border-success mb-5 gatherer" id="aqdc" hidden="true">
                           <div class="card-header">Abandoned Aqueduct <span id="aqdc-workers wrkr-cnt text-light" style="float: right;"><span id="aqdcWrk">0</span>/<span id="aqdcWrkMx">1</span></span></div>
                           <div class="card-body">
                             <h5 class="card-title">
@@ -78,7 +79,7 @@
                     <div class="row gthr">
                       <div class="col">
 
-                        <div class="card border-success mb-5 gatherer" id="gprc"  hidden="true">
+                        <div class="card border-success mb-5 gatherer" id="gprc" hidden="true">
                           <div class="card-header">Decaying Mine <span id="gprc-workers wrkr-cnt text-light" style="float: right;"><span id="gprcWrk">0</span>/<span id="gprcWrkMx">1</span></span></div>
                           <div class="card-body">
                             <h5 class="card-title">
@@ -109,7 +110,7 @@
                   <div class="row">
                     <div class="row crftng">
                       <div class="col" style="width:20rem;">
-                        <div class="card border-success mb-5 crafter" id="cwkb" >
+                        <div class="card border-success mb-5 crafter" id="cwkb">
                           <div class="card-header">Workbench <span style="float:right;">Cost: 20S</span></div>
                           <div class="card-body">
                             <h5 class="card-title">
@@ -164,7 +165,7 @@
                   <div class="row">
                     <div class="row bldng">
                       <div class="col">
-                        <div class="card border-success mb-5 builder" id="bshlt" >
+                        <div class="card border-success mb-5 builder" id="bshlt">
                           <div class="card-header">Shelter <span style="float:right;">Cost: <span id="shelterCost">50</span> S</span></div>
                           <div class="card-body">
                             <h5 class="card-title">
@@ -191,8 +192,8 @@
                   <div class="row">
                     <div class="row bldng">
                       <div class="col">
-                        <div class="card border-success mb-5 builder" id="bshlt" >
-                          <div class="card-header">Merchant Stand <span style="float:right;">Cost: 300 S</span></div>
+                        <div class="card border-success mb-5 builder" id="bshlt">
+                          <div class="card-header">Merchant Stand <span style="float:right;">Cost: <span id="merchPrice">300</span> S</span></div>
                           <div class="card-body">
                             <h5 class="card-title">
                               <div class="btn-group" role="group" aria-label="Basic example" style="float: right;">
@@ -218,7 +219,7 @@
                   <div class="row">
                     <div class="row bldng">
                       <div class="col">
-                        <div class="card border-success mb-5 builder" id="brshp" >
+                        <div class="card border-success mb-5 builder" id="brshp">
                           <div class="card-header">Repaired Ship <span style="float:right;">Cost: 100k S</span></div>
                           <div class="card-body">
                             <h5 class="card-title">
@@ -248,7 +249,8 @@
           <div class="col">
             <div>
               <h2 class="text-light">Console:</h2>
-              <p style="font-family: monospace; margin: auto; color: #fff; background: #000;" id="log">Your ship crashed... that's not good. <br>You're not familiar with this planet, but it doesn't seem entirely abandoned. <br>You have some food and water left, that'll last you a bit.</p>
+              <p style="font-family: monospace; margin: auto; color: #fff; background: #000;" id="log">Your ship crashed... that's not good. <br>You're not familiar with this planet, but it doesn't seem entirely abandoned. <br>You have some food and
+                water left, that'll last you a bit.</p>
             </div>
 
             <div class="row" id="shopRow" hidden="true">
@@ -258,18 +260,18 @@
                   <div class="card-body">
                     <div class="row">
                       <div class="col">
-                        <ul align="center"class="list-group">
+                        <ul align="center" class="list-group">
                           <li class="list-group-item">Merchants:<br><span id="foodMrch">0</span><br>(<a id="addFM" href="#">+</a>/<a id="subFM" href="#">-</a>)</li>
                           <li class="list-group-item">Merchants:<br><span id="waterMrch">0</span><br>(<a id="addWM" href="#">+</a>/<a id="subWM" href="#">-</a>)</li>
                         </ul>
                       </div>
-                    <div class="col">
-                      <ul align="center" class="list-group">
-                        <li class="list-group-item">Rations (<span id="shopFood">0</span>)<br><br><span><a id="buyFood" href="#">Buy (-<span id="foodPrice">0</span>G)</a></span> </li>
-                        <li class="list-group-item">Water (<span id="shopWater">0</span>)<br><br><span><a id="buyWater" href="#">Buy (-<span id="waterPrice">0</span>G)</a></span> </li>
-                      </ul>
+                      <div class="col">
+                        <ul align="center" class="list-group">
+                          <li class="list-group-item">Rations (<span id="shopFood">0</span>)<br><br><span><a id="buyFood" href="#">Buy (-<span id="foodPrice">0</span>G)</a></span> </li>
+                          <li class="list-group-item">Water (<span id="shopWater">0</span>)<br><br><span><a id="buyWater" href="#">Buy (-<span id="waterPrice">0</span>G)</a></span> </li>
+                        </ul>
+                      </div>
                     </div>
-                  </div>
                   </div>
                 </div>
               </div>
@@ -309,10 +311,10 @@
 
                 <!-- Button trigger modal -->
                 <div class="d-grid gap-2" style="margin-top: 1rem;">
-                <button hidden="true" id="artifactsButton" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#artifactsModal">
-                  Artifacts
-                </button>
-              </div>
+                  <button hidden="true" id="artifactsButton" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#artifactsModal">
+                    Artifacts
+                  </button>
+                </div>
 
                 <!-- Modal -->
                 <div class="modal fade" id="artifactsModal" tabindex="-1" aria-labelledby="artifactsModalLabel" aria-hidden="true">
@@ -324,21 +326,39 @@
                       </div>
                       <div class="modal-body">
 
-                      <style media="screen">
+                        <style media="screen">
+                          td {
+                            display: block;
+                            float: left;
+                            border: 1px solid black;
+                            width: 25%;
+                            padding-bottom: 25%;
+                          }
 
-                      td { display: block; float: left; border: 1px solid black; width: 25%; padding-bottom: 25%; }
+                          td div {
+                            position: absolute
+                          }
 
-                      td div { position: absolute }
-                      table { display: block; width: 100%; }
-                      tr { display: block; width: 100%; }
-                      tbody { display: block; width: 100%; }
+                          table {
+                            display: block;
+                            width: 100%;
+                          }
 
-                      </style>
+                          tr {
+                            display: block;
+                            width: 100%;
+                          }
 
-                      <table style="height: 50%; width: 100%;">
-                            <tr>
-                              <td class="artifact" id="art1">
-                                <div>
+                          tbody {
+                            display: block;
+                            width: 100%;
+                          }
+                        </style>
+
+                        <table style="height: 50%; width: 100%;">
+                          <tr>
+                            <td class="artifact" id="art1">
+                              <div>
                                 Artifact 1: <br><span id="a1name">???</span>
                               </div>
                               <div style="top: 6rem">
@@ -348,13 +368,19 @@
                                 Cost: <span id="a1cost">10</span>G
                               </div>
                             </td>
-                              <td class="artifact"><div>2</div></td>
-                              <td class="artifact"><div>3</div></td>
-                              <td class="artifact"><div>4</div></td>
-                            </tr>
-                            <tr>
-                              <td class="artifact" id="art5">
-                                <div>
+                            <td class="artifact">
+                              <div>2</div>
+                            </td>
+                            <td class="artifact">
+                              <div>3</div>
+                            </td>
+                            <td class="artifact">
+                              <div>4</div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="artifact" id="art5">
+                              <div>
                                 Artifact 2: <br><span id="a5name">???</span>
                               </div>
                               <div style="top: 13rem">
@@ -364,19 +390,33 @@
                                 Cost: <span id="a5cost">25</span>G
                               </div>
                             </td>
-                              <td class="artifact"><div>6</div></td>
-                            </tr>
-                            <tr>
-                              <td class="artifact"><div>7</div></td>
-                              <td class="artifact"><div>8</div></td>
-                              <td class="artifact"><div>9</div></td>
-                            </tr>
-                            <tr>
-                              <td><div>10</div></td>
-                              <td><div>11</div></td>
-                              <td><div>12</div></td>
-                            </tr>
-                      </table>
+                            <td class="artifact">
+                              <div>6</div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="artifact">
+                              <div>7</div>
+                            </td>
+                            <td class="artifact">
+                              <div>8</div>
+                            </td>
+                            <td class="artifact">
+                              <div>9</div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div>10</div>
+                            </td>
+                            <td>
+                              <div>11</div>
+                            </td>
+                            <td>
+                              <div>12</div>
+                            </td>
+                          </tr>
+                        </table>
 
                       </div>
                       <div class="modal-footer">
@@ -398,24 +438,24 @@
 
 
               </div>
-              <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" >
+              <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
 
 
 
 
-
-                </div>
 
               </div>
+
             </div>
-
-
           </div>
+
+
         </div>
-
-
       </div>
+
+
     </div>
+  </div>
 
   </div>
 
@@ -439,15 +479,16 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Game Over</h5>
+          <h5 class="modal-title" id="staticBackdropLabel" align="center">Homeward bound!</h5>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" align="center">
+          Congratulations, you won!<br>
           You repaired your ship and escaped the foreign planet. <br>
           You abandoned all your workers.<br>
           What a piece of shit, huh.
         </div>
         <div class="modal-footer">
-          <button id="reset" type="button" class="btn btn-danger">Reset</button>
+          <button id="winReset" type="button" class="btn btn-danger">Reset</button>
         </div>
       </div>
     </div>

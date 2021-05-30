@@ -37,3 +37,7 @@ body {
   background-color: blue;
   color: white;
 }
+
+#scrap-count, #water-count, #food-count, #gold-count {
+  font-family: monospace;
+}

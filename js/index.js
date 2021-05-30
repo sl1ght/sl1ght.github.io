@@ -1,13 +1,13 @@
-(function () {
-    var old = console.log;
-    var logger = document.getElementById('log');
-    console.log = function (message) {
-        if (typeof message == 'object') {
-            logger.innerHTML = (JSON && JSON.stringify ? JSON.stringify(message) : message);
-        } else {
-            logger.innerHTML = message;
-        }
+(function() {
+  var old = console.log;
+  var logger = document.getElementById('log');
+  console.log = function(message) {
+    if (typeof message == 'object') {
+      logger.innerHTML = (JSON && JSON.stringify ? JSON.stringify(message) : message);
+    } else {
+      logger.innerHTML = message;
     }
+  }
 })();
 
 $(function() {
@@ -15,14 +15,14 @@ $(function() {
   var notes = "Notes";
 
 
-$("#notes").click(function(){
-  if (notes === "Notes") {
-    notes = "This is version 0.1 <br>so some things won't work <br>or are improperly balanced!"
-    $(this).html(notes)
-  } else {
-    $(this).fadeOut();
-  }
-})
+  $("#notes").click(function() {
+    if (notes === "Notes") {
+      notes = "This is version 0.1 <br>so some things won't work <br>or are improperly balanced!"
+      $(this).html(notes)
+    } else {
+      $(this).fadeOut();
+    }
+  })
 
   var player = {
     workers: 1,
@@ -72,23 +72,24 @@ $("#notes").click(function(){
   var costs = {
     workbench: 20,
     shelter: 40,
-    goldproc: 100
+    goldproc: 100,
+    shop: 300
   }
 
   var shop = {
     merchants: {
-      "total":0,
-      "available":0,
-      "food":0,
-      "water":0
+      "total": 0,
+      "available": 0,
+      "food": 0,
+      "water": 0
     },
     holding: {
-      "food":0,
-      "water":0
+      "food": 0,
+      "water": 0
     },
     price: {
-      "food":1,
-      "water":1
+      "food": 1,
+      "water": 1
     }
 
   }
@@ -96,20 +97,17 @@ $("#notes").click(function(){
   var artifacts = {
     one: {
       "owned": 0,
-      "name":"Endurance",
+      "name": "Endurance",
       "cost": 10
     },
     five: {
       "owned": 0,
-      "name":"Abundance",
+      "name": "Abundance",
       "cost": 25
     },
     mult: 1
   }
 
-  $("#reset").click(function() {
-    location.reload();
-  })
 
   $("#scrap-gather").click(function() {
     if (scrap.use === true) {
@@ -156,6 +154,28 @@ $("#notes").click(function(){
     }
   })
 
+  $("#buildShip").click(function() {
+
+    if (resources.scrap >= 100000) {
+      resources.scrap -= 100000;
+      win();
+    }
+
+  })
+
+  function win() {
+    setTimeout(function() {
+      $("#winModal").modal('show');
+      $("#all").fadeOut();
+    }, 1000);
+  }
+
+
+
+  /*$("#nav-craft-tab").click(function(){
+    $("#aqdc").removeAttr("hidden");
+  })*/
+
   $("#subtractAQWorker").click(function() {
     if (aqdc.workers >= 1) {
       aqdc.workers -= 1;
@@ -164,11 +184,17 @@ $("#notes").click(function(){
     }
   })
 
+  var firstTimeGP = true;
+
   $("#addGPWorker").click(function() {
     if (player.available >= 1 && gprc.workers < gprc.wrkmx) {
       gprc.workers += 1;
       player.available -= 1;
       player.active += 1;
+      if (firstTimeGP === true) {
+        console.log("You've descended into the abandoned mine. Gold is rare but it's definitely down here.")
+        firstTimeGP = false;
+      }
     }
   })
 
@@ -220,19 +246,12 @@ $("#notes").click(function(){
     update()
   })
 
-$("#buildShip").click(function(){
-
-  if (resources.scrap >=100000) {
-    resources.scrap -= 100000;
-    win();
-  }
-
-})
-
-
   $("#buildShop").click(function() {
-    if (resources.scrap >= 300) {
-      resources.scrap -= 300;
+    if (resources.scrap >= costs.shop) {
+      resources.scrap -= costs.shop;
+      costs.shop *= 1.2
+      costs.shop = Math.round(costs.shop)
+      $("#merchPrice").text(numberformat.format(costs.shop))
       commune.shops += 1;
       player.merchants += 1;
       shop.merchants.total += 1;
@@ -243,116 +262,124 @@ $("#buildShip").click(function(){
     }
   })
 
-//SHOP SHIT
+  //SHOP SHIT
 
-$("#addFM").click(function(){
-  if (shop.merchants.available >= 1) {
-    shop.merchants.available -= 1;
-    shop.merchants.food += 1;
+  $("#addFM").click(function() {
+    if (shop.merchants.available >= 1) {
+      shop.merchants.available -= 1;
+      shop.merchants.food += 1;
+    }
+  })
+
+  $("#subFM").click(function() {
+    if (shop.merchants.food >= 1) {
+      shop.merchants.available += 1;
+      shop.merchants.food -= 1;
+    }
+  })
+
+
+
+  $("#addWM").click(function() {
+    if (shop.merchants.available >= 1) {
+      shop.merchants.available -= 1;
+      shop.merchants.water += 1;
+    }
+  })
+
+  $("#subWM").click(function() {
+    if (shop.merchants.water >= 1) {
+      shop.merchants.available += 1;
+      shop.merchants.water -= 1;
+    }
+  })
+
+  $("#buyFood").click(function() {
+    if (resources.gold >= shop.price.food) {
+      resources.gold -= shop.price.food;
+      resources.food += shop.holding.food;
+      shop.holding.food = 0;
+      shop.price.food = 1;
+    }
+  })
+
+  $("#buyWater").click(function() {
+    if (resources.gold >= shop.price.water) {
+      resources.gold -= shop.price.water;
+      resources.water += shop.holding.water;
+      shop.holding.water = 0;
+      shop.price.water = 1;
+    }
+  })
+
+
+  function runShop() {
+    if (shop.merchants.food >= 1) {
+      shop.holding.food += shop.merchants.food * 5;
+      shop.price.food += Math.ceil(shop.merchants.food * 1.2);
+    }
+
+    if (shop.merchants.water >= 1) {
+      shop.holding.water += shop.merchants.water * 3;
+      shop.price.water += Math.ceil(shop.merchants.water * 1.4);
+    }
   }
-})
 
-$("#subFM").click(function(){
-  if (shop.merchants.food >= 1) {
-  shop.merchants.available += 1;
-  shop.merchants.food -= 1;
-}
-})
+  setInterval(function() {
+    runShop()
+  }, 2000)
 
+  function shopDate() {
+    $("#foodMrch").text(shop.merchants.food)
+    $("#waterMrch").text(shop.merchants.water)
 
+    $("#shopFood").text(shop.holding.food)
+    $("#shopWater").text(shop.holding.water)
 
-$("#addWM").click(function(){
-  if (shop.merchants.available >= 1) {
-    shop.merchants.available -= 1;
-    shop.merchants.water += 1;
-  }
-})
+    $("#foodPrice").text(shop.price.food)
+    $("#waterPrice").text(shop.price.water)
 
-$("#subWM").click(function(){
-  if (shop.merchants.water >= 1) {
-  shop.merchants.available += 1;
-  shop.merchants.water -= 1;
-}
-})
-
-$("#buyFood").click(function(){
-  if (resources.gold >= shop.price.food) {
-    resources.gold -= shop.price.food;
-    resources.food += shop.holding.food;
-    shop.holding.food = 0;
-    shop.price.food = 1;
-  }
-})
-
-$("#buyWater").click(function(){
-  if (resources.gold >= shop.price.water) {
-    resources.gold -= shop.price.water;
-    resources.water += shop.holding.water;
-    shop.holding.water = 0;
-    shop.price.water = 1;
-  }
-})
-
-
-function runShop() {
-  if (shop.merchants.food >= 1) {
-    shop.holding.food += shop.merchants.food*5;
-    shop.price.food += Math.ceil(shop.merchants.food*1.2);
   }
 
-  if (shop.merchants.water >= 1) {
-    shop.holding.water += shop.merchants.water*3;
-    shop.price.water += Math.ceil(shop.merchants.water*1.4);
-  }
-}
-
-setInterval(function(){
-  runShop()
-},2000)
-
-function shopDate() {
-  $("#foodMrch").text(shop.merchants.food)
-  $("#waterMrch").text(shop.merchants.water)
-
-  $("#shopFood").text(shop.holding.food)
-  $("#shopWater").text(shop.holding.water)
-
-  $("#foodPrice").text(shop.price.food)
-  $("#waterPrice").text(shop.price.water)
-
-}
-
-setInterval(function(){
-  shopDate()
-},50)
+  setInterval(function() {
+    shopDate()
+  }, 50)
 
 
 
 
 
-$("#art1").click(function(){
-  if (resources.gold >= artifacts.one.cost) {
-    resources.gold -= artifacts.one.cost;
-    artifacts.one.owned += 1;
-    artifacts.one.cost *= 1.5;
-    artifacts.one.cost = Math.round(artifacts.one.cost);
-    $("#a1owned").text(artifacts.one.owned);
-    $("#a1name").text(artifacts.one.name);
-    $("#a1cost").text(numberformat.format(artifacts.one.cost));
-  }
-})
+  $("#art1").click(function() {
+    if (resources.gold >= artifacts.one.cost) {
+      resources.gold -= artifacts.one.cost;
+      artifacts.one.owned += 1;
+      artifacts.one.cost *= 1.5;
+      artifacts.one.cost = Math.round(artifacts.one.cost);
+      $("#a1owned").text(artifacts.one.owned);
+      $("#a1name").text(artifacts.one.name);
+      $("#a1cost").text(numberformat.format(artifacts.one.cost));
+    }
+  })
 
-$("#art5").click(function(){
-  if (resources.gold >= artifacts.five.cost) {
-    resources.gold -= artifacts.five.cost;
-    artifacts.five.owned += 1;
-    artifacts.five.cost *= 1.5;
-    artifacts.five.cost = Math.round(artifacts.five.cost);
-    $("#a5owned").text(artifacts.five.owned);
-    $("#a5name").text(artifacts.five.name);
-    $("#a5cost").text(numberformat.format(artifacts.five.cost));
-  }
-})
+  $("#art5").click(function() {
+    if (resources.gold >= artifacts.five.cost) {
+      resources.gold -= artifacts.five.cost;
+      artifacts.five.owned += 1;
+      artifacts.five.cost *= 1.5;
+      artifacts.five.cost = Math.round(artifacts.five.cost);
+      $("#a5owned").text(artifacts.five.owned);
+      $("#a5name").text(artifacts.five.name);
+      $("#a5cost").text(numberformat.format(artifacts.five.cost));
+    }
+  })
+
+  $("#reset").click(function() {
+    location.reload();
+  })
+
+  $("#winReset").click(function() {
+    location.reload();
+  })
 
 
   function food() {
@@ -367,7 +394,7 @@ $("#art5").click(function(){
 
   function water() {
     if (player.active > 0) {
-      resources.water -= player.active+1;
+      resources.water -= player.active + 1;
       if (resources.water <= 0) {
         die()
       }
@@ -378,8 +405,8 @@ $("#art5").click(function(){
 
   function gatherScrap() {
     if (scr.workers >= 1) {
-      resources.scrap += scr.workers*(artifacts.mult+artifacts.one.owned);
-    //  console.log("Scrap gathered")
+      resources.scrap += scr.workers * (artifacts.mult + artifacts.one.owned);
+      //  console.log("Scrap gathered")
       update()
     }
   }
@@ -391,7 +418,7 @@ $("#art5").click(function(){
 
       switch (findGold) {
         case 1:
-          resources.gold += gprc.workers*(artifacts.mult+artifacts.five.owned);
+          resources.gold += gprc.workers * (artifacts.mult + artifacts.five.owned);
           console.log("Gold found!")
           break;
         case 2:
@@ -436,9 +463,9 @@ $("#art5").click(function(){
   }
 
   function attractPop() {
-    if (commune.buildings >= 1) {
+    if (commune.buildings >= 1 && commune.buildings <= 100) {
 
-      var attrChance = Math.floor(Math.random() * 4) + 1;
+      var attrChance = Math.floor(Math.random() * 3) + 1;
 
       switch (attrChance) {
         case 1:
@@ -461,12 +488,6 @@ $("#art5").click(function(){
 
           //console.log("No workers added")
 
-          break;
-        case 4:
-
-          //console.log("No workers added")
-
-          break;
         default:
 
       }
@@ -524,6 +545,10 @@ $("#art5").click(function(){
       $("#cgpr").removeAttr("hidden");
     }
 
+    if (player.workers >= 2) {
+      $("#aqdc").removeAttr("hidden");
+    }
+
     if (resources.gold >= 10) {
       $("#artifactsButton").removeAttr("hidden");
     }
@@ -559,28 +584,13 @@ $("#art5").click(function(){
     setTimeout(function() {
       console.log("Ded")
       $("#staticBackdrop").modal('show');
-      $("#all").fadeOut();
     }, 1000);
   }
-
-  function win() {
-    setTimeout(function() {
-      $("#winModal").modal('show');
-      $("#all").fadeOut();
-    }, 1000);
-  }
-
 
   function showEndGameModal() {
     var modal = document.getElementById('endGameModal');
     modal.style.display = "block";
   }
-
-  function showWinModal() {
-    var modal = document.getElementById('winModal');
-    modal.style.display = "block";
-  }
-
 
   function artifactsMult() {
     if (artifacts.one.owned >= 1) {
@@ -615,7 +625,7 @@ $("#art5").click(function(){
 
   setInterval(function() {
     gatherScrap()
-  }, 900)
+  }, 100)
 
 
 
