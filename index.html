@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <div class="container" style="margin-top:1rem;">
+  <div class="container" id="all" style="margin-top:1rem;">
     <div class="row" style="justify-content:center;">
       <div class="col">
 
@@ -165,7 +165,7 @@
                     <div class="row bldng">
                       <div class="col">
                         <div class="card border-success mb-5 builder" id="bshlt" >
-                          <div class="card-header">Shelter <span style="float:right;">Cost: <span id="shelterCost">50</span>S</span></div>
+                          <div class="card-header">Shelter <span style="float:right;">Cost: <span id="shelterCost">50</span> S</span></div>
                           <div class="card-body">
                             <h5 class="card-title">
                               <div class="btn-group" role="group" aria-label="Basic example" style="float: right;">
@@ -192,7 +192,7 @@
                     <div class="row bldng">
                       <div class="col">
                         <div class="card border-success mb-5 builder" id="bshlt" >
-                          <div class="card-header">Merchant Stand <span style="float:right;">Cost: 300S</span></div>
+                          <div class="card-header">Merchant Stand <span style="float:right;">Cost: 300 S</span></div>
                           <div class="card-body">
                             <h5 class="card-title">
                               <div class="btn-group" role="group" aria-label="Basic example" style="float: right;">
@@ -204,6 +204,33 @@
                             <div>
                               <p>
                                 Traders may sell their goods here.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" id="building">
+
+                  <div class="row">
+                    <div class="row bldng">
+                      <div class="col">
+                        <div class="card border-success mb-5 builder" id="brshp" >
+                          <div class="card-header">Repaired Ship <span style="float:right;">Cost: 100k S</span></div>
+                          <div class="card-body">
+                            <h5 class="card-title">
+                              <div class="btn-group" role="group" aria-label="Basic example" style="float: right;">
+                                <div class="d-grid gap-2">
+                                  <button id="buildShip" disabled="true" class="btn btn-success" type="button">Build</button>
+                                </div>
+                              </div>
+                            </h5>
+                            <div>
+                              <p>
+                                You can get home!
                               </p>
                             </div>
                           </div>
@@ -408,6 +435,23 @@
     </div>
   </div>
 
+  <div class="modal fade" id="winModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Game Over</h5>
+        </div>
+        <div class="modal-body">
+          You repaired your ship and escaped the foreign planet. <br>
+          You abandoned all your workers.<br>
+          What a piece of shit, huh.
+        </div>
+        <div class="modal-footer">
+          <button id="reset" type="button" class="btn btn-danger">Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 

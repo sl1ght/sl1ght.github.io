@@ -220,6 +220,16 @@ $("#notes").click(function(){
     update()
   })
 
+$("#buildShip").click(function(){
+
+  if (resources.scrap >=100000) {
+    resources.scrap -= 100000;
+    win();
+  }
+
+})
+
+
   $("#buildShop").click(function() {
     if (resources.scrap >= 300) {
       resources.scrap -= 300;
@@ -538,6 +548,10 @@ $("#art5").click(function(){
       $("#shopRow").removeAttr("hidden");
     }
 
+    if (resources.scrap >= 100000) {
+      $("#buildShip").removeAttr("disabled")
+    }
+
   }
 
 
@@ -545,13 +559,28 @@ $("#art5").click(function(){
     setTimeout(function() {
       console.log("Ded")
       $("#staticBackdrop").modal('show');
+      $("#all").fadeOut();
     }, 1000);
   }
+
+  function win() {
+    setTimeout(function() {
+      $("#winModal").modal('show');
+      $("#all").fadeOut();
+    }, 1000);
+  }
+
 
   function showEndGameModal() {
     var modal = document.getElementById('endGameModal');
     modal.style.display = "block";
   }
+
+  function showWinModal() {
+    var modal = document.getElementById('winModal');
+    modal.style.display = "block";
+  }
+
 
   function artifactsMult() {
     if (artifacts.one.owned >= 1) {
