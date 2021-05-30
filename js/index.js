@@ -10,6 +10,11 @@
   }
 })();
 
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+
 $(function() {
 
 
@@ -161,6 +166,25 @@ $(function() {
     }, 1000);
   }
 
+$("#theme-slate").click(function(){
+  $("head link#theme").attr("href", $(this).data("theme"));
+
+})
+
+$("#theme-minty").click(function(){
+  $("head link#theme").attr("href", $(this).data("theme"));
+
+})
+
+$("#theme-spacelab").click(function(){
+  $("head link#theme").attr("href", $(this).data("theme"));
+
+})
+
+$("#theme-vapor").click(function(){
+  $("head link#theme").attr("href", $(this).data("theme"));
+
+})
 
 
   /*$("#nav-craft-tab").click(function(){
@@ -588,6 +612,14 @@ $(function() {
 
     }
   }
+
+  function updateTooltips() {
+    $("#scrap-count").attr("data-bs-title", scr.workers);
+  }
+
+  setInterval(function(){
+    updateTooltips()
+  },50)
 
   setInterval(function() {
     update()
