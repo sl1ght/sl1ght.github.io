@@ -12,17 +12,8 @@
 
 $(function() {
 
-  var notes = "Notes";
 
 
-  $("#notes").click(function() {
-    if (notes === "Notes") {
-      notes = "This is version 0.1 <br>so some things won't work <br>or are improperly balanced!"
-      $(this).html(notes)
-    } else {
-      $(this).fadeOut();
-    }
-  })
 
   var player = {
     workers: 1,
