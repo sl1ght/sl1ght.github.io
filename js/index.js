@@ -625,7 +625,7 @@ $(function() {
 
   setInterval(function() {
     gatherScrap()
-  }, 100)
+  }, 800)
 
 
 
