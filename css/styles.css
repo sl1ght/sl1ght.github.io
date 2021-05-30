@@ -1,91 +1,39 @@
-* {
-    box-sizing: border-box;
+body {
+  width: 100%;
+  background: url(../img/background.jpg);
+  background-size: cover;
 }
 
-html {
-    font-family: 'VT323', monospace;
-    color: white;
-    background: #03045E;
-    text-shadow: 1px 1px 2px black;
+.container {
+  background-color:rgba(0, 0, 0, 0.2);
+  height: 100vh;
+  overflow-y: scroll;
 }
 
-#app {
-    width: 950px;
-    margin: auto;
-    margin-top: 2rem;
+.gthr, .crftng, .bldng {
+  margin-top: 1rem;
+  margin-bottom: -3rem;
+  width:100%;
 }
 
-.currency-container, .producers-container {
-    display: flex;
-    justify-content: space-between;
+.wrkr-cnt {
+  float: right;
 }
 
-.marketing-currency, .artist-currency, .evil-currency {
-    width: 300px;
-    background: #023E8A;
-    text-align: center;
-    padding: 40px;
-    box-shadow: 5px 5px 10px black;
+.close {
+  float: right;
 }
 
-.generators-container {
-    display: flex;
-    flex-direction: column;
-    margin-top: 40px;
+#endGameModal {
+  margin: auto;
+  width: 80;
 }
 
-.generator {
-    background: #0077B6;
-    width: 300px;
-    height: 150px;
-    text-align: center;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    cursor: pointer;
-    user-select: none;
-    transition-duration: 0.12s;
-    padding: 1rem;
-    box-shadow: 5px 5px 10px black;
+.artifact {
+  cursor: pointer;
 }
 
-.generator--unavailable {
-    background: #CAF0F8;
-    cursor: default;
-}
-
-.generator:hover {
-    background: #48CAE4;
-}
-
-.generator--unavailable:hover {
-    background: #CAF0F8;
-}
-
-.generator-cost{
-    display: block;
-}
-
-button {
-    background: #90E0EF;
-    border: none;
-    padding: 5px;
-    box-shadow: 5px 5px 10px black;
-}
-
-button:hover{
-    background: #00B4D8;
-    cursor: pointer;
-}
-
-#gtitle {
-    text-decoration: underline;
-    cursor: default;
-}
-
-#notes {
-    position: fixed;
-    float: right;
-    right: 0;
-    bottom: 0;
-    width: 300px;
+.artifact:hover {
+  background-color: blue;
+  color: white;
 }
